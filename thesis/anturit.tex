@@ -1,0 +1,95 @@
+\chapter{Anturit}
+\label{ch:anturit}
+
+Tässä luvussa kerrotaan dronejen sensoreiden (antureiden)
+suunnitteluvaatimuksista, toiminnasta ja tarkoituksesta.  Tekstissä antureita
+käsitellään kahdessa osassa, joiden jako perustuu antureiden tarkoitukseen:
+\begin{itemize}
+\item UAV:n asennon, sijainnin ja tilan kertomiseen tarkoitetut anturit. Tähän
+  kastiin kuuluvat esimerkiksi kiihtyvyysanturit, GPS (global positioning
+  system) ja lämpötila-anturit.
+\item Halutun datan keräykseen tarkoitetut anturit. Esimerkiksi kamerat ja
+  etäisyysanturit kuuluvat tähän luokkaan.
+\end{itemize}
+
+\section{Dronen tilaa tarkkailevat anturit}
+Dronen sijaintia ja asentoa tarkkaillaan yleensä GPS:n ja IMU:n (inertial
+measurement unit) avulla. Välillä käytetään myös kompassia.
+
+GPS on Yhdysvaltain puolustusministeriön hallinnoima
+satelliittipaikannusjärjestelmä. Satelliittipaikannusjärjestelmät, mukaan
+lukien GPS, perustuvat kolmeen tai useampaan satelliittiin, jotka jatkuvasti
+lähettävät aikaleiman ja tiedon sijainnistaan suhteessa maahan. Satelliittien
+aikaleimojen ja sijantitietojen avulla GPS-vastaanotin pystyy laskemaan oman
+sijaintinsa. Oikeassa maailmassa tulee kuitenkin ottaa huomioon muun muassa
+myös sääolosuhteet ja maapallon epätasaisuus. Satelliittien kellojen tulee myös
+olla äärimmäisen tarkkoja, ja niiden pitää olla synkronoituna keskenään.
+Satelliittien etäisyydestä johtuen maapallon painovoima vaikuttaa niihin
+vähemmän, jolloin suhteellisuusteorian mukaisesti niiden aika kuluu eri tahtiin
+kuin maapallon pinnalla, joka tulee myös huomioida sijainnin
+laskennassa. Ja jos vastaanottimen aika on virheellinen, tarvitaan neljäs
+satelliitti virheen oikaisemiseksi.~\cite{Parkinson1995}
+
+GPS ei ole ainoa satelliittipaikannusjärjestelmä, mutta se oli ensimmäinen ja
+sitä käytetään laajimmin kuluttajasektorilla. Luultavasti näistä syistä GPS on
+puhekielessä muodostunut geneeriseksi termiksi
+satelliittipaikannusjärjestelmälle. Muita satelliittipaikannusjärjestelmiä ovat
+muun muassa EU:n Galileo~\cite{EUGalileo} ja Kiinan BeiDou~\cite{CNBeiDou}.
+
+GPS:n avulla voidaan siis määrittää UAV:n sijainnin maapallolla. IMU:n avulla
+saadaan selville mihin suuntaan UAV liikkuu ja mikä sen asento on.  IMU koostuu
+yleensä kolmella akselilla toimivasta kiihtyvyysanturista, ja myös kolmella
+akselilla toimivasta gyroskoopista. Kiihtyvyysanturit mittaavat
+etenemisliikettä ja gyroskoopit kiertoliikettä.~\cite{Mems2017}
+
+Kiihtyvyysanturi koostuu vähintään kolmesta komponentista: Massasta, jonka
+suuruus tiedetään tarkasti, massaa pitelevästä jousituksesta, ja mekaanista
+liikettä mittaavasta anturista. Dronen kiihtyvyyttä muuttavat voimat
+vaikuttavat välillisesti myös kiihtyvyysanturin massaan, jonka kiihtyvyys
+aiheuttaa sitä kannattelevaan jouseen jännitteen, jonka anturi voi mitata, ja
+joka voidaan taas muuntaa kiihtyvyysarvoksi. Kiihtyvyysarvoja integroimalla
+voidaan selvittää myös dronen liikkumisnopeus. Koska anturin mittaama arvo on
+kuitenkin skalaari, massan liike täytyy rajoittaa vain yhdelle
+akselille.~\cite{Mems2017}
+
+Yleisin tapa toteuttaa gyroskooppi tarpeeksi pienenä, että se mahtuu droneen,
+on yllättävän samanlainen kuin kiihtyvyysanturin toteutus. Siinäkin
+hyödynnetään testimassaa ja sitä kannattelevaa jousitusta, mutta tällä kertaa
+massa värähtelee, ja se voi liikkua kahdella akselilla. Toisella akselilla massa
+värähtelee, ja toisella akselilla sen liikettä mitataan kuin
+kiihtyvyysanturissakin. Värähtelyn seurauksena gyroskoopin kiertoliike
+aiheuttaa massassa Coriolisvoiman, joka liikuttaa massaa mitattavalla
+akselilla. Massan liike voidaan mitata ja muuntaa kulmanopeuden
+arvoksi.~\cite{Mems2017}
+
+Jokainen kiihtyvyysanturi ja gyroskooppi mittaa kiihtyvyyttä tai kulmanopeutta
+vain yhdellä akselilla. Näin ollen kumpiakin tarvitaan kolme, jotta kiihtyvyys
+ja kulmanopeus voidaan mitata kolmiulotteisessa avaruudessa.~\cite{Mems2017}
+
+\section{Ulkoiset anturit}
+Sotilaskäytössä olevia UAV:ta käytetään usein tarkkailuun. Tällöin niiden
+pääasiallinen ulkoinen anturi on kamera, joka voi ottaa kuvia yhdellä tai
+useammalla spektrillä. Eri piirteet korostuvat eri spektreillä. Jotkut asiat,
+kuten esimerkiksi naamioitunut ihminen, voivat olla näkyvän valon
+aallonpituudella lähes näkymättömiä. Ihminen erottuu kuitenkin kehonlämpönsä
+takia selvästi infrapunavalon aallonpituudella.~\cite{Modest2013}
+
+Lähteessä~\cite{Hogan2017} on tutkittu dronen
+sovelluksia maanviljelyssä. Normaalilla kameralla otettuja kuvia voidaan
+hyödyntää esimerkiksi topografisessa mallintamisessa. Infrapunakuvista nähdään
+kuvassa olevien kasvien tai eläinten lämpötila, joka voi olla hyödyllistä
+karjan tai sadon tilan tarkkailussa.
+
+Tutkimuskäytössä olevat dronet käyttävät myös usein kameraa pääasiallisena
+anturinaan. Tällöin ne esimerkiksi voivat ottaa kuvia, joilla voidaan tarkkailla
+esimerkiksi metsien tilaa tai kartoittaa maastoa. Etäisyysanturilla,
+esimerkiksi LIDAR:lla (light detection and ranging), voidaan kartoittaa maaston
+muotoja~\cite{Hogan2017}. Metereologisten ilmiöiden tutkimisessa voi olla
+hyödyllistä kerätä lämpötila- ja tuulennopeustietoa.
+
+Droneen on painon, mittojen ja virrankäytön rajoissa mahdollista liittää mitä
+vain antureita. Harva UAV on kuitenkaan tarkoitettu laskeutumaan datan keruuta
+varten, johtuen laskeutumisen suhteellisen suuresta riskistä epäonnistua.
+Laskeutuneena UAV on myös normaalia alttiimpi muun muassa eläinten
+hyökkäyksille. Näin ollen droneissa käytetyt anturit ovat pääasiassa sellaisia,
+jotka pystyvät mittaamaan pitkiltäkin etäisyyksiltä.

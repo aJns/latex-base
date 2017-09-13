@@ -1,0 +1,97 @@
+\chapter{Kommunikaatiojärjestelmät}
+\label{ch:kommunikaatio}
+
+Tässä luvussa käsitellään UAV:n kommunikaatiojärjestelmiä ja niiden
+erityispiirteitä ja haasteita.
+
+Harraste- ja kuvauskäytössä olevat dronet ovat yleensä niin lähellä
+käyttäjäänsä, että yksinkertainen radiolinkki riittää ohjaukseen. Sotilas- ja
+tutkimuskäytössä olevat dronet voivat kuitenkin kulkea pitkiä matkoja, lentää
+erittäin korkealla tai toimia toisella puolella maailmaa. Tällöin
+kommunikaatiojärjestelmät luonnollisesti monimutkaistuvat.
+
+\section{Kommunikaatio UAV:n ja komentokeskuksen välillä}
+
+Droneja ohjataan yleensä langattomasti radiosignaaleilla. Radiosignaalien
+lisäksi dronejen ohjauksessa on myös kokeiltu laseria ja valokuitukaapelia.
+Laser-ohjauksen kehitys on kuitenkin suurimmaksi osaksi hylätty johtuen
+ilmakehän rajoittamasta kantamasta ja luotettavuudesta.
+
+Myös valokuitukaapeli voi olla paras ratkaisu jossain tilanteissa.  Valokuitu
+on materiaalia, joka ohjaa toiseen päähän osoitetun valon ulos toisesta päästä.
+Valokuitukaapeli mahdollistaa nopean kommunikaation, kun sen läpi johdetaan
+laser-signaali.  Valokuitukaapeli on paras vaihtoehto tehtävissä, joissa
+tarvitaan todella nopeaa datan lähetystä, käytännössä murtamatonta
+tietoturvallisuutta, ja jossa halutaan estää dronen havaitseminen sen
+lähettämien radiosignaalien avulla.~\cite{Austin2010} Tässä tekstissä
+käsitellään kuitenkin vain radiosignaalien avulla tapahtuvaa kommunikaatiota.
+
+Radiotaajuudeksi määritellään yleensä taajuudeltaan 3 Hz --- 300 GHz välille
+sijoittuva elektronmagneettinen säteily~\cite{Sobot2012}.
+Taulukossa~\ref{table:RadioFreqTable} näkyy, miten eri taajuudet luokitellaan
+ryhmiin.
+\begin{table}[H]
+  \caption{Radiotaajuuksien luokituksia~\cite{Sobot2012}}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{radiokaistat}
+  \end{center}
+\label{table:RadioFreqTable}
+\end{table}
+
+Radiotaajuksien käyttö on tarkasti säädeltyä eri valtionvirastojen toimesta,
+esimerkiksi Suomessa tästä huolehtii Viestintävirasto.
+
+Radio-ohjauksen ongelmat riippuvat UAV:n käyttötarkoituksesta, ja ne johtuvat
+yleensä seuraavista syistä:~\cite{Austin2010}
+\begin{itemize}
+  \item Radiolähettimen tai -vastaanottimen liian heikko vahvistus
+  \item Suuret etäisyydet ja/tai epäedullinen ympäristö (vuoristo, pilvet yms)
+  \item Liian pieni tiedonsiirtokapasiteetti (liian kapea kaista ja/tai liian
+    hidas yhteys)
+  \item Tahallinen tai tahaton signaalin häirintä
+\end{itemize}
+
+Näköetäisyydellä käytettävillä droneilla ongelmat johtuvat yleensä liian
+heikosta lähettimestä tai vastaanottimesta. Kyseisiä droneja ohjataan usein
+harrastekäyttöön tarkoitetuilla, melko pienillä lähettimillä, joiden
+lähetysteho on melko rajallinen.~\cite{Austin2010}
+
+Sotilaskäytössä olevia UAV:ta käytetään yleensä suurella etäisyydellä
+komentokeskuksesta, jolloin niiden kommunikaatio-ongelmat liittyvät usein
+etäisyyden tuomiin haasteisiin. Radiosignaalin kantama riippuu monesta asiasta,
+mutta parhaimmillaankin se rajoittuu noin 130 kilometriin. Kyseinen kantama
+johtuu maapallon kaarevuudesta; Lähetysasema jää yksinkertaisesti horisontin
+peittoon, jos oletetaan, että UAV lentää noin kilomterin
+korkeudessa.~\cite{Austin2010} Useimmissa tapauksissa ohjaussignaali
+välitetäänkin satellitiin tai toisen dronen kautta.
+
+UAV järjestelmien monimutkaisuuden kasvaessa myös niiden tiedonsiirtotarpeet
+kasvavat. Monet järjestelmät lähettävät komentokeskukseen reaaliajassa
+korkeatasoista kuvaa ja komentokeskus lähettää myös melko monimutkaisiakin
+ohjauskomentoja UAV:lle. Samalla myös siviiliväestön tiedonsiirtotarpeet ja
+-käyttö kasvavat, jolloin tiedonsiirtokapasiteetti myös jatkuvasti laskee.
+Langattoman tiedonsiirron kasvaessa myös häiriöiden määrä kasvaa, puhumattakaan
+tahallisesta häirinnästä.~\cite{Austin2010}
+
+\section{Systeemien välinen kommunikaatio ja UAV:t kommunikaatiolinkkeinä}
+Edellä kuvattu kommunikaatio UAV:n ja komentokeskuksen välillä on kuitenkin
+yksinkertainen tilanne, joka tulee luultavasti muuttumaan entistä
+harvinaisemmaksi. Tulevaisuuden UAV:t keskustelevat komentokeskuksen lisäksi
+keskenään ja muiden toimijoiden kanssa. Välillä dronejen tulee myös pystyä
+kommunikoimaan eri asevoimien järjestelmien kanssa, jonka takia NATO on luonut
+NATO STANAG 4586 standardin, joilla eri maiden järjestelmät voivat kommunikoida
+toistensa kanssa ainakin välttävästi.\cite{Austin2010}
+
+Dronejen todellinen potentiaali onkin tilanteessa, jossa on useita droneja,
+jotka jakavat anturidataa toistensa ja maanpäällisten yksikköjen ja
+komentokeskuksen kanssa. 
+Lähteessä~\cite{Hayat2014} on kuvattu
+IEEE 802.11 protokollaan perustuva UAV-verkko, johon pystytään joustavasti
+lisäämään määrittämätön määrä droneja ja tukiasemia.
+
+Dronejen välisen tiedonsiirron parantuessa avautuu myös mahdollisuus käyttää
+niitä telekommunikaatiolinkkeinä. Tässä tehtävässä ne ovat paljon halvempia
+kuin satelliitit, ja myös joustavampia; Uuden satelliitin lisääminen verkkoon
+on hidasta ja kallista, uuden dronen lisääminen on huomattavasti halvempaa ja
+nopeampaa.  Erityisesti köyhät, harvaan asutut ja kriisin alaiset alueet
+hyötyisivät niistä.~\cite{Li2010}

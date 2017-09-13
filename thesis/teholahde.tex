@@ -1,0 +1,135 @@
+\hyphenation{tuu-li-ener-gia}
+
+\chapter{Teholähde}
+\label{ch:teholahde}
+
+Tässä luvussa käsitellään UAV:den käyttämiä teholähteitä, ja niihin kohdistuvia
+erityisvaatimuksia. Useimmissa UAV:ssa moottorit käyvät koko ajan, joka luo
+jatkuvan energian tarpeen. Tämän lisäksi anturit ja aktuaattorit voivat myös
+luoda piikkejä energian tarpeeseen.
+
+Perinteisesti UAV:t ovat käyttäneet teholähteenään joko akkuja tai
+polttomoottoreita. Uudet teholähteet tekevät kumminkin tuloaan.  Esimerkiksi
+aurinkovoima soveltuu hyvin varsinkin korkealla toimiviin droneihin, koska
+pilvet eivät vaikuta aurinkokennojen tehokkuuteen. Aurinkoenergian lisäksi
+ympäristöä voidaan hyödyntää energiasieppausmetodein, esimerkiksi muuntamalla
+UAV:n potkurista syntyvää värinää sähköenergiaksi, tai hyödyntämällä
+toiminta-alueen ilmavirtauksia liikkumiseen. Myös polttokennot ovat
+mahdollinen teholähde, vaikkakin nykyisellään niiden matala energiatiheys
+rajoittaa niiden käyttöä lennokeissa~\cite{Bradley2007}.
+
+Hybriditeholähteet ovat lupaavimpia tulevaisuuden teholähteitä, koska
+polttomoottoria lukuunottamatta tässä tekstissä käsitellyt teholähteet eivät
+kykene tuottamaan tehoa tarpeeksi paljon, tasaisesti tai ennustettavasti, tai
+jos pystyvät, ne rajoittavat UAV:n toimintaa liikaa. Polttomoottorin ongelmana
+taas on sen aiheuttama saaste, ja joissakin tilanteissa sen aiheuttama melu tai
+lämpö voi olla epäedullista, vaikkapa jos halutaan estää dronen havaitseminen.
+``Hybridi'' tarkoittaa, että teholähde koostuu useammasta teholähteestä, joka
+tarkoittaa yleensä akkua, ja jotain, joka lataa sitä, esimerkiksi
+aurinkokennoa.  Jotkut hybriditeholähteet koostuvat jopa kolmesta eri
+teholähteestä: Akusta, polttokennosta ja aurinkokennosta.~\cite{Chen2010}
+
+\section{Akut ja polttomoottorit}
+Käytännössä kaikki dronet tarvitsevat akun riippumatta siitä, onko se ainoa
+teholähde vai ei. Monet tutkimuksen kohteena olevista teholähteistä tuottavat
+tehoa melko katkonaisesti. Osa, esimerkiksi energiansieppaus potkurin
+värinästä, ei edes pysty huolehtimaan tehontuotannosta kokonaan, vaan niiden
+tehtävä on pitkittää toiminta-aikaa. Myös polttomoottoria teholähteenään
+käyttävät dronet hyötyvät akusta, koska se mahdollistaa elektroniikan
+toiminnan vaikka moottori sammuisikin. Akun avulla sammunut moottori voitaisiin
+myös pyrkiä käynnistämään uudelleen ilman ulkopuolista apua.
+
+Litiumioniakkuja on perinteisesti käytetty kulutuselektroniikassa, ja myös
+harrastedronet kuuluvat tähän ryhmään. Litiumioniakut ovat kuitenkin
+yleistyneet myös isommissa sähköajoneuvoissa, koska niillä on monia etuja
+perinteisiin lyijyakkuihin verrattuna. Niiden energiatiheys on korkeampi,
+ne ovat pitkäkestoisia, niiden itsepurkautuvuus on vähäistä, ja niillä ei ole
+muisti-ilmiötä. Akkuja, joissa esiintyy muisti-ilmiötä, täytyy purkaa tyhjäksi
+säännöllisesti, tai sen kapasiteetti alenee. Litiumioniakut ovat kuitenkin
+muita akkutyyppejä kalliimpia johtuen litiumin
+harvinaisuudesta.~\cite{Sparacino2012}
+
+Polttomoottoreita käytetään yleensä isommissa UAV:ssa, kuten sotilasmalleissa.
+Esimerkiksi Yhdysvaltojen ilmavoimien käyttämä MQ-1B Predator käyttää Rotax
+914F polttomoottoria~\cite{usaf-predator}, joka tuottaa parhaimmillaan
+84,5 kW tehoa~\cite{rotax-914}. Ilmavoimien
+nettisivujen~\cite{usaf-predator} mukaan Predatorin kantama on 770 mailia, eli
+noin 1239 kilometriä.
+
+\sloppy{Suurin syy, miksi isommat UAV:t käyttävät polttomoottoreita akkujen
+  sijaan, on polttoaineiden huomattavasti suurempi energiatiheys. Esimerkiksi
+  Panasonicin NCR18650B~\cite{panasonic-ncr18650b} litiumioniakun energiatiheys
+  on noin 0.87 MJ/kg, kun taas yleisesti käytössä olevan lentokonepolttoaineen
+  AVGAS 100LL~\cite{shell-avgas}, jota myös Predator käyttää, energiatiheys on
+  noin 44 MJ/kg, joka on 50 kertainen verrattuna litiumioniakkuun.
+}
+
+
+
+\section{Polttokennot teholähteenä}
+Polttokenno on laite joka muuntaa kemiallista energiaa sähköenergiaksi.
+Kemiallinen energia syntyy kennoon syötetystä vetypitoisesta polttoaineesta
+ja hapesta, tai muusta oksidoivasta aineesta, joiden välinen sähkökemiallinen
+reaktio vapauttaa energiaa.
+
+Droneissa polttokennoja käytetään yleensä hybriditeholähteissä, joissa
+on sekä polttokenno että akku. Näin teholähde pystyy vastaamaan esimerkiksi
+nousun vaatimiin tehopiikkeihin. Kun UAV on lentokorkeudella ja tehonkulutus
+matalaa ja tasaista, polttokenno voi ladata akkua. Haittana
+hybriditeholähteessä on teholähteen monimutkaisempi rakenne.~\cite{Gao2005}
+
+Lähteessä~\cite{Bradley2007} käsitellään polttokennoa käyttävän UAV-prototyypin
+ominaisuuksia ja suorituskykyä. Kyseinen protyyppi käyttää ainoastaan
+polttokennoa tehonlähteenään. Polttokenno huipputeho on 465 W ja sen
+energiatiheys on noin 0.187 MJ/kg. Prototyyppia on testattu noin 110 s
+lennoilla, joiden aikana se on lentänyt noin 1200~m matkan.  Näiden testien
+perusteella UAV:n lentoajaksi arvioidaan maksimissaan noin 43 minuuttia.
+
+\section{Aurinkokennot ja energiansieppaus}
+Aurinkokennoja ja energiansieppausta voidaan myös hyödyntää
+hybriditeholähteissä pidentämään UAV:den lentoaikoja. Energiansieppaus
+tarkoittaa ympäristössä ilmenevän energian muuttamista käytettävään
+sähköenergiaan~\cite{Anton2011}. Aurinko- ja tuulienergia ovat jo melko
+jokapäiväisiä energiansieppausmenetelmiä, mutta esimerkiksi myös ihmisen
+ruumiinlämpöä tai moottorin värinää voidaan muuntaa sähköenergiaksi.
+
+Aurinkoenergian ja muiden UAV:n ulkopuolisiin ilmiöihin perustuvien
+energiansieppaustapojen tehontuotantoa on kuitenkin vaikea varmistaa, koska
+niihin ei pysty vaikuttamaan juuri muuten kuin UAV:n toiminta-alueen
+valinnalla. Akulla toimintavarmuutta voidaan parantaa vähentämällä UAV:n
+riippuvuutta ulkoisista ilmiöistä.  Niiden järkevät käyttöalueet ja -tilanteet
+ovat joka tapauksessa rajattuja; Päiväntasaajalla aurinkoenergia on
+varteenotettava vaihtoehto, Suomessa ei niinkään.  Parhaassakin tapauksessa
+tehonkulutusta pitää suunnitella tarkaan.  Lähteessä~\cite{Jaw-KuenShiau2009}
+käsitellyn prototyypin 3:n aurinkopaneelin yhteen laskettu huipputeho on noin
+72 W. Aurinkokennojen tuottama teho riippuu kuitenkin niiden jännitteestä,
+joten ne käytännössä vaativat maksimitehopisteen seurantajärjestelmän (Maximum
+Power Point Tracking, MPPT). Myös akun lataaminen vaatii lisää elektroniikkaa,
+koska aurinkokennojen jännitetaso on yleensä liian matala, jolloin tarvitaan
+hakkureita nostamaan jännite käytettävälle tasolle.
+
+Energiaa voidaan siepata esimerkiksi dronen omasta värinästä~\cite{Priya2009}
+tai ympäröivistä sääilmiöistä. Värinä on siepattavan energian lähteenä melko
+luotettava verrattuna sääilmiöihin, jotka riippuvat muun muassa sijainnista,
+vuoden- ja vuorokaudenajasta sekä lentokorkeudesta. Hyvä esimerkki sääilmiön
+hyödyntämisestä on ilmavirtausten käyttäminen UAV:n korkeuden lisäämiseen
+moottorin sijaan~\cite{Cutler2010}.
+
+\section{Langaton tehonsiirto}
+Langattomalla tehonsiirrolla voidaan poistaa tarve laskeutua akun latausta
+varten, mikä helpottaa latausta varsinkin malleissa, jotka tarvitsevat
+kiitoradan. Latausasemia voidaan sijoittaa maastoon joihin laskeutuminen ei
+olisi mahdollista, jolloin UAV pystyy toimimaan kyseisellä alueella paljon
+pidempään.
+
+Lähteessä~\cite{Griffin2012} käsitellään magneettiseen resonanssiin perustuvaa
+langatonta tehonsiirtoa. Kyseisessä artikkelissa ideana on siirtää energiaa
+UAV:n avulla maassa sijaitsevalle anturille, mutta kyseistä menetelmää
+voidaan myös käyttää toisinpäin lataamaan UAV:ta. Suurimpana ongelmana
+kyseisessä menetelmässä on UAV:n asennon ja sijainnin pitäminen optimaalisena,
+mutta siitä huolimatta menetelmä saavutti lähes 5 W jatkuvan tehonsiirron.
+
+Toinen langattoman tehonsiirron teknologia perustuu laseriin.
+Lähteessä~\cite{Achtelik2011} on esitetty järjestelmä, jossa tukiasema tähtää
+lasersäteen aurinkokennoon, joka on liitetty droneen. Kyseisellä järjestelmällä
+on saavutettu jopa 12 tunnin yhtäjaksoinen lento dronella.

@@ -1,0 +1,154 @@
+\chapter{Aktuaattorit}
+\label{ch:aktuaattorit}
+
+Tässä luvussa käsitellään UAV:n liikkumiseen tarvittavia aktuaattoreita, eli
+pääasiassa sähkömoottoreita. Droneissa voi olla muitakin aktuaattoreita.
+Sotilasmallit saattavat kantaa aseita, joiden laukaisuun tarvitaan
+aktuaattoreita. Tutkimus- tai kuljetuskäyttöön tarkoitetuissa malleissa voi
+olla tavaroiden kuljetukseen, tai tutkimuslaitteiden keräämiseen ja
+purkamiseen, tarkoitettuja aktuaattoreita. Viihdemalleissa voi olla valoja tai
+kaiuttimia.
+
+Näitä aktuaattoreita on kuitenkin niin monenlaisia, että niiden käsittely ei
+ole järkevää. Kaikissa droneissa on kuitenkin liikumiseen tarkoitettuja
+aktuaattoreita, ja monet muut aktuaattorit, kuten kourat ja asejärjestelmät,
+käyttävät myös sähkömoottoreita, joita tässä käsitellään.
+
+Ensin tuodaan esille erilaisia dronekokoonpanoja, jonka jälkeen perehdytään
+niiden käyttämiin ohjausaktuaattoreihin ja niiden eroihin.
+
+\section{Dronekokoonpanot}
+
+Kuten miehitetyt lentokoneet, myös UAV:t ja dronet voidaan jakaa
+kiinteäsiipisiin ja roottorilentokoneisiin, riippuen siitä, millä tavalla ne
+pysyvät ilmassa. Kiinteäsiipisten mallien tulee liikkua tarpeeksi nopeasti,
+jotta niiden siivet pystyvät luomaan nostetta. Roottorilentokoneet taas pysyvät
+ilmassa vain propellien luoman nosteen avulla. Roottorilentokoneiden reititys
+on yksinkertaisempaa, ja ne ovat joustavampia, koska niiden ei tarvitse pysyä
+liikkeessä pysyäkseen ilmassa. Kiinteäsiipiset mallit taas ovat
+energiatehokkaampia, ja pystyvät kuljettamaan painavampia lasteja, koska
+moottorin ei tarvitse yksin huolehtia nosteesta.~\cite{Austin2010}
+
+On olemassa myös ratkaisuja, jotka eivät sovi tähän jakoon, kuten esimerkiksi
+ornithoptereita~\cite{Austin2010}, mutta suurimmalle osasta droneista kyseinen
+jako toimii hyvin.
+
+Roottorilentokoneita on monenlaisia. Pääroottoreita voi olla yksi, kuten
+perinteisessä helikopterissa. Tällöin tarvitaan myös toissijainen roottori
+vastustamaan pääroottorin luomaa kierremomenttia. Vaihtoehtoisia malleja ovat
+koaksiaaliroottori, jossa on kaksi pääroottoria päällekkäin, pyörien
+vastakkaisiin suuntiin, näin kumoten toisen aiheuttaman kierremomentin;
+Tandemroottori, jossa on kaksi pääroottoria eri kohdissa dronea; Ja
+quad-roottori, joka on varsinkin harrastedroneissa suosittu konfiguraatio.
+Quad-roottorin etu harrastedroneissa on se, että dronen hallintaan riittää
+moottoreiden nopeuden säätö. Muissa konfiguraatiossa täytyy pystyä hallitsemaan
+roottorin siivekkeiden kulmaa, joka lisää monimutkaisuutta ja
+hintaa.~\cite{Austin2010}
+
+% \TODO{paulos tähän}
+% \cite{Paulos2013}
+% \cite{Paulos2015}
+
+Kiinteäsiipisissä droneissa moottori on yleensä takana. Näin dronen etuosaan on
+mahdollista sijoittaa esimerkiksi antureita, jossa niillä on parempi näkyvyys.
+Kiinteäsiipisten konfiguraatioiden isoin ero tulee perän sijainnista. Se voi
+olla osa runkoa, kuten useimmissa matkustajalentokoneissa.  Se voi olla myös
+kiinni puomeilla, tai se voi puuttua kokonaan, jolloin kyse on lentävästä
+siivestä.~\cite{Austin2010}
+
+
+\section{Sähkömoottorit}
+Pienemmissä droneissa käytetään yleensä sähkömoottoreita, koska ne
+ovat polttomoottoreita kevyempiä, mutta kuitenkin tarpeeksi
+tehokkaita~\cite{Austin2010}. Yksinkertainen, esimerkiksi harrastedronessa
+esiintyvä, moottorijärjestelmä koostuu teholähteestä, nopeudensäätimestä,
+sähkömoottorista ja propellerista~\cite{Gabriel2011}. Teholähteitä käsiteltiin
+jo kappaleessa~\ref{ch:teholahde}, ja propellerin aerodynamiikan käsittely ei
+kuulu tämän työn aihepiiriin. Käsiteltäväksi jäävät siis sähkömoottori ja
+nopeudensäädin.
+
+Kaikkien sähkömoottoreiden toiminta perustuu sähkövirran aiheuttamaan
+magneettikenttään. Kahden magneettikentän kohdatessa syntyy voima, joka pyrkii
+asettamaan magneettikentät samansuuntaisiksi. Jos siis on olemassa esimerkiksi
+kestomagneetilla luotu magneettikenttä, ja siihen viedään johto, jonka läpi
+virtaa sähköä, magneettinen voima pyrkii asettamaan johdon ja kestomagneetin
+niin, että niiden magneettikentät ovat samansuuntaiset. Jos tässä tilanteessa
+kestomagneetin liike estetään, vain johto muuttaa asentoaan. Jos johdon läpi
+kulkevan virran suuntaa vaihdellaan jaksottaisesti, voidaan saada aikaan
+pyörimisliike.~\cite{Gottlieb1997}
+
+Kuvassa~\ref{fig:dc-motor} on yksinkertaistettu kuva tasavirtamoottorista.
+Kuvassa nähdään kestomagneetin navat, N ja S, käämi, eli johto, jonka läpi
+kulkee virta, teholähde ja harjat. Harjat ovat kuvassa teholähteestä lähtevät
+kappaleet, jotka osuvat käämiin. Silmukan pyöriessä harjojen kontaktipinta
+vaihtuu, jolloin silmukan läpi virtaavan sähkön suunta vaihtuu.  Ilman tätä
+virran suunnan vaihtumista silmukka ei pyörisi.~\cite{Gottlieb1997}
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{dc-motor}
+  \end{center}
+  \caption{Yksinkertaistettu kuva tasavirtamoottorista.~\cite{Gottlieb1997}}
+\label{fig:dc-motor}
+\end{figure}
+
+Droneissa käytetyt sähkömoottorit ovat yleensä harjattomia
+tasavirtamoottoreita. Harjattomat tasavirtamoottorit, lyhennettynä BLDC
+(brushless direct current) moottorit, ovat suosittuja droneissa, koska niiden
+ominaisuudet vastaavat hyvin dronen moottorille asettamia
+vaatimuksia.~\cite{Gabriel2011}
+
+Näitä ominaisuuksia BLDC-moottoreissa ovat~\cite{Yedamale2003}
+\begin{itemize}
+  \item Parempi pyörimisnopeus/vääntömomentti suhde. Vääntömomentti ei vähene
+    nopeuden kasvaessa.
+
+  \item Parempi hyötysuhde. Jännite ei laske harjojen yli.
+
+  \item Suurempi lähtöteho kokoonsa nähden.
+
+  \item Suurempi nopeusalue. Harjat eivät rajoita nopeutta.
+
+  \item Aiheuttavat vähemmän elektromagneettista häiriötä.
+
+\end{itemize}
+
+Harjojen puute on myös itsessään etu, sillä harjat kuluvat nopeasti, joten
+harjattoman moottorin elinikä on pidempi. Harjattomuus johtuu siitä, että
+BLDC moottorissa kestomagneetti sijaitsee pyörivässä osassa, eli roottorissa,
+ja käämi, jonka avulla moottori pyörii, sijaitsee paikallaan pysyvässä
+osassa, eli staattorissa. Koska käämi ei liiku, sen läpi kulkevan
+virran suunta täytyy vaihtaa elektronisesti, mikä tekee BLDC-moottorin
+ohjauksesta harjallista moottoria monimutkaisempaa.~\cite{Gabriel2011}
+
+Lennonohjauspiiri lähettää pulssinleveysmodulaatiosignaalina, yleisemmin PWM
+(pulse width modulation), halutun kierrosnopeuden nopeudensäätimelle,
+yleisemmin ESC:lle (electronic speed control). ESC-piirien toiminta riippuu
+siitä, minkälaista moottoria ne ohjaavat. Kaikki ESC-piirit kuitenkin syöttävät
+teholähteestä virtaa moottorille niin, että moottorinnopeus vastaa ESC:n
+ohjaussignaalia. BLDC-moottori vaatii ESC:n, koska sen käämejä täytyy kytkeä
+päälle ja pois oikeassa tahdissa.~\cite{Gabriel2011}
+
+
+\subsection{Ohjauspinnat}
+Edellä käsiteltyjä moottoreita käytetään kiinteäsiipisissä malleissa vain
+työntövoimaa varten. Kiinteäsiipisiä malleja ohjataan siivissä ja perän
+siivekkeissä olevien ohjauspintojen avulla. Ohjauspinta tarkoittaa siiven osaa,
+joka liikkuu. Ohjauspintojen avulla voidaan hallita siiven yli liikkuvaa
+ilmavirtaa, ja näin ohjata siipeen kohdistuvaa voimaa, esimerkiksi kääntymistä
+varten.
+
+Työntövoimaa varten käytettävät moottorit eivät sovellu kovin hyvin
+ohjauspintojen ohjausta varten. Ohjauspinnoissa tarvitaan tarkkuutta, ja
+pyörimisnopeus ei ole niin tärkeää. Siksi servomoottorit soveltuvat tähän
+tehtävään hyvin. Servomoottori on sähkömoottori, joka on optimoitu toimimaan
+tarkasti ja tasaisesti pienillä nopeuksilla. Se sisältää usein myös anturin,
+joka mittaa servon asentoa, mahdollistaen näin tarkan ohjauksen.~\cite{Suh2008}
+
+Tutkimusta on tehty paljon myös niin sanottuun ``mukautuvaan siipiprofiiliin''
+(adaptive airfoil), jossa koko siipi, tai entistä isompi osa siitä, mukautuu
+tilanteen tai ohjauksen tarpeen mukaan. Näin voidaan parantaa esimerkiksi
+dronen ohjattavuutta, ja vähentää sakkauksen riskiä.~\cite{Huang2013}
+Mukautuvat siipiprofiilit voivat hyödyntää perinteisiä mekaanisia
+aktuaattoreita, mutta myös muistimetalleja (Shape Memory Alloy, SMA) on
+tutkittu. SMA:n suurin etu perinteisiin aktuaattoreihin on niiden
+keveys.~\cite{Abdullah2010}

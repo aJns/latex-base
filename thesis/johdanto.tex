@@ -1,0 +1,88 @@
+\chapter{Johdanto}
+\label{ch:johdanto}
+Miehittämättömät ilma-alukset, eli englanniksi Unmanned Aerial Vehicle:t (UAV)
+tai tuttavallisemmin ``dronet'', ovat kokoajan lisääntyvä tekniikan alue.
+Asevoimat käyttävät droneja laajasti, joko tiedustelussa tai
+taistelukentillä, mutta niille löytyy lisääntyvässä määrin käyttöä myös
+siviilimaailmassa. Esimerkiksi Amazon suunnittelee käyttävänsä niitä tavaran
+nopeassa ja halvassa kuljetuksessa, ja video- ja valokuvauksessa ne ovat
+mahdollistaneet halvat ilmakuvat. Myös tutkimuksessa ja muussa datan
+keräyksessä UAV:t ja muut miehittämättömät ajoneuvot tulevat helpottamaan
+ihmisten työtä, ja avaruustutkimuksessa miehittämättömät alukset ovat jo
+pitkään tehneet työtä, joka on ollut liian kallista tai vaarallista ihmisille.
+UAV:den laajoihin käyttöalueisiin kuuluvat myös telekommunikaatioalan
+sovellukset, joissa ne ovat halvempia ja joustavampia kuin satelliitit.
+
+Kuvissa~\ref{fig:small_12dollar_quad} ja~\ref{fig:big_predator} näkyy hyvin,
+kuinka erilaisia dronet voivat olla; Toinen on 12 dollarin arvoinen,
+leikkikäyttöön tarkoitettu, kädenkokoinen malli, ja toinen on päälle 4:n
+miljoonan dollarin arvoinen sotilastiedustelumalli, jonka siipiväli on 14,8 m.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.8\textwidth]{small_12dollar_quad}
+  \caption{Leikkikäyttöön tarkoitettu drone~\cite{miniQuad}}
+\label{fig:small_12dollar_quad}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.8\textwidth]{big_predator}
+  \caption{Sotilastiedustelumalli, General Atomics MQ-1
+    Predator~\cite{bigPredator}}
+\label{fig:big_predator}
+\end{minipage}
+\end{figure}
+
+UAV:t koostuvat monista eri osista. Korkealla tasolla UAV voidaan esimerkiksi
+jakaa seuraaviin osiin:
+\begin{itemize}
+
+\item teholähde, yleensä akku, mutta voi kehittyneissä malleissa olla myös
+esimerkiksi aurinkopaneeli.
+
+\item sulautetut järjestelmät. UAV:n ohjaus, anturidatan keräys ja käsittely,
+ja mahdollisesti myös tekoäly pohjautuvat nykyaikana halpaan ja helposti
+saataavaan laskentatehoon.
+
+\item anturit. UAV:den pääkäyttö on nykyaikana kaikenlaisen datan kerääminen,
+joten anturit ovat melkein kaikkissa droneissa olennaisia.
+
+\item aktuaattorit. Kaikki dronet tarvitsevat ainakin ohjausaktuaattoreita.
+Multiroottoreissa (useamman roottorin avulla lentävä drone) tämä tarkoittaa
+ainoastaan moottoreiden nopeuden säätöä, mutta lentokonemalleissa tarvitaan myös
+siivekkeiden ohjausta.
+
+\item kommunikaatiojärjestelmät. Harrastemalleissa on yleensä yksinkertaisia,
+lyhytkantoisia radiojärjestelmiä, joiden tarkoitus on yleensä vain ohjata
+dronea. Sotilasmalleissa taas on tarpeen välittää paljon dataa kumpaankin
+suuntaan, myös silloin, kun ohjaaja ja alus ovat eri mantereilla.
+\end{itemize}
+
+Kuvassa~\ref{fig:harrastedrone} on kuvattu yksinkertaisen harrastemallin
+elektroniikkaa ja lohkojen välisiä kytkentöjä. Kyseessä on
+multiroottorimalli, joka on harrastajien keskuudessa yleinen sen
+yksinkertaisuudesta johtuen. Kuvasta nähdään, että kyseisessä mallissa on
+aktuaattoreina neljä moottoria ja neljä nopeudensäädintä. Dronesta löytyy
+radiovastaanotin ja lentämistä helpottava lentotietokone. Teholähteenä toimii
+yksi litiumioniakku.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{harrastedrone}
+  \end{center}
+  \caption{Harrastedronen elektroniset järjestelmät, perustuu kuvaan lähteessä~\cite{RedditQuad}}
+\label{fig:harrastedrone}
+\end{figure}
+
+
+Tämän työn tarkoituksena on käsitellä edellä listattuja UAV:n elektronisia osia
+tarkemmin.
+Luvussa 2 esitellään, mitä eri teholähteitä UAV:t voivat käyttää.
+Luvussa 3 käsitellään dronen sulautettuja järjestelmiä, kuten
+suunnistusjärjestelmiä tai automaattiohjausta.
+Luvussa 4 käsitellään droneissa käytettyjä antureita ja luvussa 5 niissä
+käytettyjä aktuaattoreita.
+Luvussa 6 käydään läpi UAV:n ohjauksessa ja tiedonsiirrossa käytettäviä
+kommunikaatiojärjestelmiä.
+Luvussa 7 on yhteenveto työn sisällöstä.

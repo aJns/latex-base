@@ -1,0 +1,187 @@
+\chapter{Sulautetut järjestelmät}
+\label{ch:sulautetut}
+
+Sulautetuksi järjestelmäksi kutsutaan yleensä tietokonejärjestelmiä, jotka on
+suunniteltu rajattua tarkoitusta varten, ja jotka ovat osa jotain isompaa
+järjestelmää. Nykyään kyseinen määritelmä ei ole täysin yksiselitteinen.
+Perinteistä puhelinta voidaan pitää sulautettuna järjestelmänä, mutta nykyiset
+älypuhelimet muistuttavat jo enemmän yleiskäyttöisiä tietokoneita.
+Sulautetuilla järjestelmillä on kuitenkin muutamia yhteisiä piirteitä, jotka
+erottavat ne yleiskäyttöisistä tietokoneista.~\cite{Noergaard2005}
+\begin{itemize}
+  \item Niiden fyysinen koko ja/tai laskentateho on selkeästi rajallisempi.
+  \item Ne on suunniteltu rajattua tarkoitusta varten.
+  \item Niillä on reaaliaikaisuus-vaatimuksia tai niiden toiminnan tulee olla
+    muuten luotettavampaa.
+\end{itemize}
+
+UAV:n tietokonejärjestelmät ovat melko selkeästi sulautettuja järjestelmiä.
+Niiden toiminnalla on tietty tarkoitus, niiden koko ja teho on rajattu
+tiettyihin vaatimuksiin, ja niiden tulee ehdottomasti toimia reaaliaikaisesti
+ja luotettavasti.
+
+Tässä luvussa kerrotaan dronejen sulautetuista järjestelmistä, ja dronen niihin
+kohdistamista erityisvaatimuksista. Ensin perehdytään sulautettujen
+järjestelmien arkkitehtuuriin, eli järjestelmien elektroniikan ja ohjelmiston
+suunnitteluun droneille. Esille otetaan myös muutamia kehitysalustoja ja
+kirjastoja, jotka ovat tarkoitettu dronen sulautettujen järjestelmien
+rakentamiseen. Sen jälkeen käydään tarkemmin läpi näiltä järjestelmiltä
+vaadittavaa toiminnallisuutta.
+
+\section{Elektroniikka}
+Pienemmät UAV:t, joita käytetään harrastuksessa tai tutkimuksessa, ovat paljon
+yksinkertaisempia. Harrastedroneille on tarjolla todella paljon erilaisia
+lennonohjauslevyjä, kuten esimerkiksi PyroDrone~\cite{PyroDroneFC}. Kyseinen
+levy on melko tyypillinen harrastedronen lennonohjauslevy. Sen keskiössä on
+32-bittinen STM32F405 ARM-arkkitehtuuriin perustuva prosessori, jonka
+toiminnallisuutta on jatkettu muun muassa flash-muistilla, monenlaisilla
+liitännöillä ja MPU6000 inertiamittauspiirillä.
+
+Linkboard~\cite{Wzorek2017} on pienikokoisille UAV:lle suunniteltu alusta,
+jonka laitteisto on muunneltavissa riippuen siitä, kuinka paljon laskentatehoa
+tarvitaan. Minimissään laittesto pystyy lennonohjaukseen ja anturidatan
+käsittelyyn. Siihen voi kuitenkin lisätä kaksi Gumstix lisälevyä. Lisälevyt
+ovat identtisiä, ja sisältävät yhden ARM Cortex-A8 prosessorin ja digitaalisen
+signaalinkäsittelypiirin (digital signal processor, DSP). Lisälevyjen avulla
+Linkboard pystyy korkeatasoiseen lennon suunnitteluun ja datan käsittelyyn.
+
+\section{Ohjelmisto}
+Koska kyseessä on sulautettu järjestelmä, ohjelmiston toteutus riippuu pitkälti
+käytetystä elektroniikasta. Yksinkertaisissa malleissa ei välttämättä käytetä
+käyttöjärjestelmää, vaan mikrokontrolleri suorittaa yhtä ohjelmaa, joka ohjaa
+dronea. Toiminnallisuuden kasvaessa ohjelmisto voi kasvaa hallitsemattomaksi,
+jolloin on hyödyllistä käyttää olemassaolevia kehitysalustoja.
+
+Yksi esimerkki tälläisestä kehitysalustasta on Robot Operating System (ROS),
+joka kerää yhteen työkaluja ja kirjastoja helpottamaan robottia ja
+miehittämättömien ajoneuvojen ohjelmistokehitystä~\cite{RobotOperatingSystem}.
+Erityisesti droneille on olemassa myös flyt\@{OS}. Flyt\@{OS} toimittaa
+pitkälti samaa virkaa kuin ROS, mutta se keskittyy erityisesti
+drone-sovelluksiin ja niiden vaatimuksiin.~\cite{flytOS}
+
+Kauko-ohjattaville harrastelennokeille ja multiroottoreille on olemassa
+lukuisia lennonohjausohjelmistoja. Yksi esimerkki on Cleanflight. Cleanflight
+on suhteellisen helposti konfiguroitava ohjelmisto, joka muun muassa helpottaa
+lennokin ohjausta PID-säädöin ja mahdollistaa vaikkapa LED-nauhojen
+kauko-ohjauksen.~\cite{Cleanflight}
+
+
+\section{Toiminnallisuus}
+
+Kuvassa~\ref{fig:uav_ohjaus_tasot} on periaatekuva UAV:n ohjauksen tasoista.
+Tasot on kuvattu laskevan abstraktion mukaan; Ylimpänä on melko käsitteellinen
+``Tehtävä'', alimpana todella yksityiskohtaista hallintaa vaativat
+aktuaattorit. Katkoviivalla on rajattu tasot, jotka voivat kuulua UAV:n
+sulautettujen järjestelmien toiminnallisuuteen.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{uav_ohjaus_tasot}
+  \end{center}
+  \caption{Periaatekuva UAV:n ohjauksen tasoista.}
+\label{fig:uav_ohjaus_tasot}
+\end{figure}
+
+Kauko-ohjattavan harrastedronen tietokonejärjestelmien toiminnallisuudella ei
+ole paljon vaatimuksia. Vaatimuksena on lähinnä helpottaa ohjausta säätämällä
+moottoreita.  Mahdollisesti halutaan myös ohjata vaikkapa dronesta löytyviä
+LED:ejä.  Itsenäisen, tiedusteluun tai tiedon keräykseen tarkoitetun, UAV:n
+ohjelmisto on jo astetta monimutkaisempi. Enää ei riitä vain moottorin säätö,
+tarvitaan myös täysin varusteltu autopilotti, ja itsenäisyyden tasosta riippuen
+ehkä myös jonkun tason tekoäly, joka päättää mitä UAV seuraavaksi tekee. Jos UAV
+lentää matalalla, sen tulee pystyä väistämään maaston piirteitä, ja on myös
+mahdollista, että UAV:n halutaan itse pystyvän, jossain määrin, tulkitsemaan
+havaintojaan.
+Tämän takia tässä tekstissä on eroteltu yksinkertaisempi
+autopilotti ja monimutkaisempi tekoäly omiin alakappaleisiinsa.
+
+\subsection{Autopilotti}
+Perinteisen autopilotin toiminnallisuus voidaan jakaa kahteen osaan: Lentävän
+koneen, esimerkiksi lentokoneen tai dronen, vakautus, ja ohjaus, joka pitää
+koneen reitillään. Vakautus pyrkii pitämään koneen mahdollisimman vakaana,
+ohjaamalla esimerkiksi jatkuvaa sivutuulta vastaan. Lennonvakausjärjestelmä voi
+myös helpottaa ohjausta abstrahoimalla esimerkiksi moottorinnopeuden säädön.
+Reitinohjaus taas pyrkii pitämään koneen halutulla reitillä. Modularisuuden
+kannalta on hyödyllistä suunnitella vakaus ja ohjaus erillisinä lohkoina, niin
+kuin lähteessä~\cite{Capello2017}, jossa on kuvattu autopilotti, jonka
+reitinohjausjärjestelmä ohjaa vakautusjärjestelmää.
+
+Harrastedroneissa on yleensä käytössä vain lennonvakausjärjestelmä. Nykyisin
+suosittuja multiroottoreita olisi huomattavasti vaikeampi ohjata, jos ohjaaja
+joutuisi säätämään suoraan jokaisen moottorin pyörimisnopeutta. Sen sijaan
+ohjaaja voi antaa dronelle komennon kallistua vasemmalle. Tämä on mahdollista
+lennonohjauslevyllä olevan säädön seurauksena. Harrastedronejen
+lennonohjauslevyt käyttävät yleensä PID-säädintä. PID-säädin on suljetun
+silmukan säädin, joka tarkoittaa, että säädin huomioi ulostulossaan säätönsä
+vaikutuksen. Droneissa tämä tarkoittaa, että se tarkkailee drone korkeuden,
+nopeuden ja asennon muutosta asettaessaan moottoreiden
+pyörimisnopeuden. Se ottaa antureiden datan huomioon säädössään, jolloin, jos
+drone ei kallistu tarpeeksi, se voi lisätä moottoreiden kierroksia, kunnes
+kallistuma on tarpeeksi suuri.~\cite{Sebbane2015}
+
+PID-säädin on vanha ja yksinkertainen keksintö, mutta se on edelleen usein
+paras ratkaisu käytännön säätöongelmaan. PID-säädin saa nimensä eri
+toimintalohkoistaan; P-lohkon ulostulo on halutun arvon ja nykyisen arvon
+erotus kerrottuna vakiolla. I-lohko integroi erotusta ajan yli, eli käytännössä
+summaa erotuksen arvoja asetetulta ajalta, ja kertoo summan vakiolla. D-lohko
+derivoi erotusta, eli laskee, kuinka nopeasti erotus muuttuu, ja kertoo
+derivaatan vakiolla. PID-säätimen muutettavia parametreja ovat jokaisen lohkon
+kerroin, ja integraalin ja derivaatan aika. Näitä parametreja muuttamalla
+säädin voidaan muokata sopivaksi monenlaisiin
+säätötehtäviin.~\cite{Visioli2006}
+
+Keskeistä lennonohjauksessa on UAV:n liikeradan mallintaminen ja suunnittelu.
+Etenkin kiinteäsiipisen UAV:n on otettava huomioon monimutkaisia
+lentodynamiikkoja. Se ei esimerkiksi saa asettaa konetta liian jyrkkään
+nousuun, ettei kone sakkaa. Yksinkertaisempi ohjausjärjestelmä saattaa ottaa
+huomioon ainoastaan koneen omat ominaisuudet, esimerkiksi sen siipien nosteen
+ja moottorien tehon. Monimutkaisemmat järjestelmät voivat ottaa huomioon myös
+meteorologista tietoa, esimerkiksi ohittamalla, alueet joilla on kova
+vastatuuli.~\cite{Sebbane2015}
+
+\subsection{Tekoäly ja konenäkö}
+Jos autopilotin tehtävä on pitää UAV reitillään, UAV:n tekoälyn tulee valita
+seurattava reitti. Reitin valintaan vaikuttavat monet seikat, kuten
+suoritettava tehtävä, ympäristö, ja käytettävissä olevat anturit ja
+aktuaattorit.
+
+Robotiikassa, johon itsenäiset UAV:t lasketaan~\cite{Sebbane2014}, tekoälystä
+puhutaan rationaalisena toimijana. Tässä yhteydessä toimija, englanniksi agent,
+voi tarkoittaa mitä tahansa objektia, joka havaitsee ympäristöään antureiden
+kautta, ja toimii siinä aktuaattoreiden avulla. Rationaalinen tarkoittaa, että
+toimija päättää jokaisessa tilanteessa tehdä sen toiminnon, jonka odotettu
+seuraus on mahdollisimman hyvä. Toiminnan hyvyyden arviointi on kuitenkin
+vaikea ja keskeinen ongelma tekoälyn kehityksessä.~\cite{Russell2013}
+Antureita ja aktuaattoreita käsitellään tarkemmin kappaleissa~\ref{ch:anturit}
+ja~\ref{ch:aktuaattorit}.
+
+Reitinsuunnitteluun löytyy monia menetelmiä. Käytetty menetelmä riippuu myös,
+minkä tasoisesta reitinsuunnittelusta on kyse. Jos on tarve päästä paikasta A
+paikkaan B, ja ympäristö tunnetaan tarkasti, on tarjolla useita
+reititysalgoritmeja.~\cite{Sebbane2014} Jos taas tilanne on muuttuva,
+esimerkiksi, koska tehtävänä on seurata liikkuavaa kohdetta, tarvitaan
+monimutkaisempia ratkaisuja. Artikkelissa~\cite{Ragi2013} on käytetty 
+osittain havaittavissa olevaa Markov-päätöksentekoprosessia (partially
+observable Markov decision process, POMDP).
+Artikkelissa tarkoituksena on ohjata useampaa UAV:ta muuttuvassa ympäristössä,
+joiden tulee seurata kohdettaan, kuitenkin samalla pitäen etäisyyttä uhkiin.
+
+Reitinsuunnittelua varten UAV:n täytyy myös pystyä mallintamaan ympäristöään.
+Suoraan antureista saatu data, kuten kuvat tai LIDAR:sta saatu etäisyysdata,
+täytyy käsitellä konenäön avulla.
+Konenäkö on tekoälyn osa-alue, jonka tarkoituksena on mahdollistaa ympäristön
+havainnointi koneille yhtä tehokkaasti kuin ihmiselle. Konenäössäkin on
+useampia tasoja. Alemmalla tasolla käsitellään kuvia, jotta halutut asiat
+korostuisivat. Voidaan esimerkiksi korostaa reunoja. Korkeammalla tasolla
+käytetään koneoppimisen metodeja, ja koitetaan esimerkiksi tunnistaa, mitä kuva
+esittää.~\cite{Davies2012}
+
+Konenäöllä voi olla erilaisia tavoitteita.
+Sillä voidaan havainnoida ympäristöä navigointia varten, ja tunnistaa esteitä.
+Artikkelissa~\cite{Subramanian2006} on kehitetty järjestelmä sitruspuiden
+lomassa ajavan itsenäisen robotin ohjausta varten. Kameralla otettuja kuvia
+analysoidaan konenäköjärjestelmällä, joka luo mallin ympäristöstä, jonka avulla
+robotti voi ohjata itseään ilman tarkkaa GPS-signaalia.
+Konenäköä voi myös käyttää pelastustoimissa ihmisen löytämiseen
+maastossa~\cite{Rudol2008}, tai villieläinkantojen
+tarkkailuun~\cite{Gonzalez2016}.
+
